@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Sansita&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sansita&display=swap');
+#ListManager{
+    color: white;
+    background: url(https://pa1.narvii.com/6481/104bf9eb8b5327041b28ab37f5f6c6a4de863d3a_hq.gif) no-repeat;
+  
+    background-position: right;
+    border-color: #4d96db;
+    border-style:solid;
+    height: 5rem;
+    border-radius: 25px;
+    h1{
+        margin-left: 30px;
+        font-family: 'Sansita', sans-serif;
+    }
+}
+.todoForm{
+    background: hsla(180, 100%, 52%, 0.622);
+    margin-left: 5%;
+    padding-left: 5%;
+    width: 100%;
+    align-items: center;
+    height: 15rem;
+    border-color: #d6f7fe;
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    .label{
+        margin-left: 20px;
+    }
+}
+.sideBySide{
+    display:block;
+    width: 90%;
+}
+.addedItem{
+    margin-top:5%;
+    margin-left: 10%;
+    justify-content: center;
+}
+#TodoHeading{
+    font-family: 'Sansita', sans-serif; 
+}
