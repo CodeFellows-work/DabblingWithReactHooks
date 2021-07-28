@@ -75,6 +75,7 @@ const ToDo = () => {
     if(list.length <= 5){
       Alerts.setPageTwo('hidden')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [incomplete, list]);
 
   useEffect(() => {
