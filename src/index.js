@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App.js';
-import AlertColor from './components/alertColor/ContextProvider.js';
+import Alert from './components/alertColor/ContextProvider.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AlertColor>
+    <Alert>
       <App/>
-    </AlertColor>
+    </Alert>
   </React.StrictMode>,
   document.getElementById('root')
 )

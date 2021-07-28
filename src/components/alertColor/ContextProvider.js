@@ -2,15 +2,20 @@ import React, {useState} from 'react';
 
 export const AlertContext = React.createContext();
 
-function AlertColor(props){
+function Alert(props){
 
-    const [color, setColor] = useState('danger');
+    const [hide, setHide] = useState('hidden');
+    const [item, setItem] = useState(5);
+    const [sort, setSort] = useState('');
+    const [pageOne, setPageOne] = useState('hidden');
+    const [pageTwo, setPageTwo] = useState('hidden');
+    const [pageThree, setPageThree] = useState('hidden')
 
     return (
-        <AlertContext.Provider value ={{color: color, setColor: setColor}}>
+        <AlertContext.Provider value ={{hide, item, sort, pageOne, setPageOne, pageTwo, setPageTwo, pageThree, setPageThree}}>
             {props.children}
         </AlertContext.Provider>
     )
 }
 
-export default AlertColor; 
+export default Alert; 
