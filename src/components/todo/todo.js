@@ -12,6 +12,8 @@ import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
 
+
+
 const ToDo = () => {
   
   const [list, setList] = useState([]);
@@ -83,6 +85,8 @@ const ToDo = () => {
     setCompleteTask(completed);
     document.title = `Completed Tasks: ${completedTask}`;
   }, [completedTask, list]);
+
+
   //-------------------PAGINATION-------------------------//
   // function pagination will slice the list array to limit the displayed list to 5
   function pagination() {
@@ -120,68 +124,74 @@ function pageThree(){
 let completed = list.filter(item => item.complete); 
   return (
     <>
-      <header id="ListManager">
-        <h1>To Do List: {incomplete} items pending</h1>
-        <h1>Completed: {completedTask}</h1>
-      </header>
+        <header id="ListManager">
+          <h1>To Do List: {incomplete} items pending</h1>
+          <h1>Completed: {completedTask}</h1>
+        </header>
+
+        <div>
+          <h1 id="TodoHeading">Completed:</h1>
+          {completed.map(item => 
+            <Alert variant="success" className="completedItem">
+              <p>To Do Item: {item.text}</p>
+              <p>Assigned To: {item.assignee}</p> 
+              <p>Item Difficulty: {item.difficulty}</p>
+              <Button style={{marginLeft:"10px"}} onClick={() => deleteItem(item.id)} variant="danger">Delete</Button>
+            </Alert>
+            )}
+        </div>
+
+        <h2 id="TodoHeading" style={{marginLeft:"5%"}}>Add To Do Item</h2>
+        <div className="sideBySide">
+
+          <Form className="todoForm" onSubmit={handleSubmit}>
+            <Form.Group className="label">
+              <Form.Label>
+                <Form.Text>To Do Item </Form.Text>
+                <Form.Control onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+              </Form.Label>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label className="label">
+                <Form.Text>Assigned To </Form.Text>
+                <Form.Control onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+              </Form.Label>
+            </Form.Group>
+
+            <Form.Group className="label">
+            <Form.Label>
+              <Form.Text>Difficulty </Form.Text>
+              <Form.Control onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
+            </Form.Label>
+            </Form.Group>
+            <Button style={{marginLeft: "10px"}} variant="primary" type="submit">Add Item</Button>
+          </Form>
+        </div>
+ 
+
       <div>
-        <h1 id="TodoHeading">Completed:</h1>
-        {completed.map(item => 
-          <Alert variant="success" className="completedItem">
-            <p>To Do Item: {item.text}</p>
-            <p>Assigned To: {item.assignee}</p> 
-            <p>Item Difficulty: {item.difficulty}</p>
+        <h1 id="TodoHeading" style={{marginLeft:"5%"}} >Assigned Tasks:</h1>
+        {pagination().map(item => (
+          <Alert variant="danger" className="addedItem" key={item.id}>
+            <p>{item.text}</p>
+            <p><small>Assigned to: {item.assignee}</small></p>
+            <p><small>Difficulty: {item.difficulty}</small></p>
+            <Button onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Button>
             <Button style={{marginLeft:"10px"}} onClick={() => deleteItem(item.id)} variant="danger">Delete</Button>
           </Alert>
-          )}
-      </div>
-        <h2 id="TodoHeading" style={{marginLeft:"5%"}}>Add To Do Item</h2>
-    <div className="sideBySide">
+        ))}
+          <nav  className="paginationTemptation" aria-label="Page navigation example">
+            <ul className="pagination">
+              <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo, marginRight: "100px"}} onClick={previous}>Previous</a></li>
+              <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo}} onClick={pageOne}>1</a></li>
+              <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo}} onClick={pageTwo}>2</a></li>
+              <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageThree}} onClick={pageThree}>3</a></li>
+              <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo, marginLeft: "100px"}} onClick={next}>Next</a></li>
+            </ul>
+          </nav>
 
-      <Form className="todoForm" onSubmit={handleSubmit}>
-        <Form.Group className="label">
-          <Form.Label>
-            <Form.Text>To Do Item </Form.Text>
-            <Form.Control onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-          </Form.Label>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label className="label">
-            <Form.Text>Assigned To </Form.Text>
-            <Form.Control onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-          </Form.Label>
-        </Form.Group>
-
-        <Form.Group className="label">
-        <Form.Label>
-          <Form.Text>Difficulty </Form.Text>
-          <Form.Control onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
-        </Form.Label>
-        </Form.Group>
-        <Button style={{marginLeft: "10px"}} variant="primary" type="submit">Add Item</Button>
-      </Form>
-        <h1 id="TodoHeading" style={{marginLeft:"5%"}} >Assigned Tasks:</h1>
-      {pagination().map(item => (
-        <Alert variant="danger" className="addedItem" key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <Button onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Button>
-          <Button style={{marginLeft:"10px"}} onClick={() => deleteItem(item.id)} variant="danger">Delete</Button>
-        </Alert>
-      ))}
-      <nav  className="paginationTemptation" aria-label="Page navigation example">
-  <ul className="pagination">
-    <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo, marginRight: "100px"}} onClick={previous}>Previous</a></li>
-    <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo}} onClick={pageOne}>1</a></li>
-    <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo}} onClick={pageTwo}>2</a></li>
-    <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageThree}} onClick={pageThree}>3</a></li>
-    <li className="page-item"><a className="page-link" style={{visibility: Alerts.pageTwo, marginLeft: "100px"}} onClick={next}>Next</a></li>
-  </ul>
-</nav>
-      </div>
-
+        </div>
     </>
   );
 };
