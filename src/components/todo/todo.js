@@ -14,6 +14,10 @@ import Alert from 'react-bootstrap/Alert';
 
 
 
+import Auth from '../auth/auth.js';
+
+
+
 const ToDo = () => {
   
   const [list, setList] = useState([]);
@@ -87,6 +91,9 @@ const ToDo = () => {
   }, [completedTask, list]);
 
 
+
+
+
   //-------------------PAGINATION-------------------------//
   // function pagination will slice the list array to limit the displayed list to 5
   function pagination() {
@@ -122,6 +129,7 @@ function pageThree(){
 //--------------------------PAGINATION------------------//
 
 let completed = list.filter(item => item.complete); 
+
   return (
     <>
         <header id="ListManager">
@@ -129,10 +137,10 @@ let completed = list.filter(item => item.complete);
           <h1>Completed: {completedTask}</h1>
         </header>
 
-        <div>
+        <div className="completedClass">
           <h1 id="TodoHeading">Completed:</h1>
           {completed.map(item => 
-            <Alert variant="success" className="completedItem">
+            <Alert variant="success" className="completed">
               <p>To Do Item: {item.text}</p>
               <p>Assigned To: {item.assignee}</p> 
               <p>Item Difficulty: {item.difficulty}</p>
@@ -142,39 +150,44 @@ let completed = list.filter(item => item.complete);
         </div>
 
         <h2 id="TodoHeading" style={{marginLeft:"5%"}}>Add To Do Item</h2>
-        <div className="sideBySide">
 
-          <Form className="todoForm" onSubmit={handleSubmit}>
-            <Form.Group className="label">
-              <Form.Label>
-                <Form.Text>To Do Item </Form.Text>
-                <Form.Control onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-              </Form.Label>
-            </Form.Group>
+       
+          <Auth capability='create'>
+            <div className="todoFormDiv">
+              <Form className="todoForm" onSubmit={handleSubmit}>
+                <Form.Group className="label">
+                  <Form.Label>
+                    <Form.Text>To Do Item </Form.Text>
+                    <Form.Control onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+                  </Form.Label>
+                </Form.Group>
 
-            <Form.Group>
-              <Form.Label className="label">
-                <Form.Text>Assigned To </Form.Text>
-                <Form.Control onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-              </Form.Label>
-            </Form.Group>
+                <Form.Group>
+                  <Form.Label className="label">
+                    <Form.Text>Assigned To </Form.Text>
+                    <Form.Control onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+                  </Form.Label>
+                </Form.Group>
 
-            <Form.Group className="label">
-            <Form.Label>
-              <Form.Text>Difficulty </Form.Text>
-              <Form.Control onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
-            </Form.Label>
-            </Form.Group>
-            <Button style={{marginLeft: "10px"}} variant="primary" type="submit">Add Item</Button>
-          </Form>
-        </div>
+                <Form.Group className="label">
+                <Form.Label>
+                  <Form.Text>Difficulty </Form.Text>
+                  <Form.Control onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
+                </Form.Label>
+                </Form.Group>
+                <Button style={{marginLeft: "10px", marginRight:'0'}} variant="primary" type="submit">Add Item</Button>
+              </Form>
+            </div>
+
+        </Auth>
+       
  
 
-      <div>
+      <div className="alertContainer" >
         <h1 id="TodoHeading" style={{marginLeft:"5%"}} >Assigned Tasks:</h1>
         {pagination().map(item => (
           <Alert variant="danger" className="addedItem" key={item.id}>
-            <p>{item.text}</p>
+            <p>ToDo: {item.text}</p>
             <p><small>Assigned to: {item.assignee}</small></p>
             <p><small>Difficulty: {item.difficulty}</small></p>
             <Button onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Button>

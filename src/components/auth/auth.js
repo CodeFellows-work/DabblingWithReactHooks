@@ -2,17 +2,16 @@ import { useContext } from 'react';
 
 import { LoginContext } from '../auth/context.js'
 
-function Auth(props){
-    
-    const { isAuthorized, loggedIn } = useContext(LoginContext);
+function Auth(props) {
+
+    const { isAuthenticated, isAuthorized } = useContext(LoginContext);
 
     return (
         <>
-        {(loggedIn && isAuthorized(props.capability))
-        ? props.children
-        : null
-        }
-
+            {(isAuthenticated && isAuthorized(props.capability))
+                ? props.children
+                : null
+            }
         </>
     )
 }

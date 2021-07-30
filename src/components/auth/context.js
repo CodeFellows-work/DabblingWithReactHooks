@@ -1,9 +1,10 @@
 import React from 'react';
+
 import cookies from 'react-cookies';
 import jwt from 'jsonwebtoken';
 
-
 export const LoginContext = React.createContext();
+
 
 const testUsers = [
     {
@@ -22,9 +23,9 @@ const testUsers = [
         password: 'password',
         name: 'Writer',
         role: 'writer',
-        capabilities: ['create']
+        capabilities: ['create', 'read']
     }
-  ]
+]
 
 
 class LoginProvider extends React.Component {
@@ -34,39 +35,36 @@ class LoginProvider extends React.Component {
         this.state = {
             login: this.login,
             logout: this.logout,
-            loggedIn: false,
+            isAuthenticated: false,
             isAuthorized: this.isAuthorized,
             user: {capabilities:[]},
-            token: null,
         };
     }
     
     login = (username, password) => {
+        // search our testUser and return a valid user.
         let validUser = {};
-        let token = null; 
-
+        let token = null;
         testUsers.forEach(user => {
-            if(user.name === username && user.password === password){
+            if (user.name === username && user.password === password) {
                 validUser = user
             }
         });
-
-        if(validUser){
-            token = jwt.sign(validUser, 'secret');
-        }
+            if (validUser) {
+                token = jwt.sign(validUser, 'secretstring');
+            }
         cookies.save('token', token);
-        this.setState({loggedIn: true, user: validUser})
-        console.log('context state', token, this.state.user.capabilities);
+        this.setState({ isAuthenticated: true, user: validUser });
     }
-
+        
     logout = () => {
         this.setState({
-            loggedIn: false, 
-            can: null, 
+            isAuthenticated: false, 
+            isAuthorized: null, 
             user: {}
         });
     };
-
+        
     isAuthorized = (capability) => {
         if(this.state.user) {
             return this.state.user.capabilities?.includes(capability);
