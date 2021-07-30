@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dokdo&family=Gloria+Hallelujah&display=swap');
+
+.loginForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login{
+        margin-top: 5%;
+        border-style: solid;
+        border-color: black;
+        width: 500px;
+        height: 500px;
+        display: block;
+        background: url("https://i2.wp.com/windowscustomization.com/wp-content/uploads/2018/12/Fantasy-World-2.gif?fit=750%2C356&quality=80&strip=all&ssl=1") no-repeat;
+        background-size: 1100px;    
+            .H1{
+                margin-left: 7%;
+                margin-top: 5%;
+                width:80%;
+                background:linear-gradient(0.25turn, aqua, white, #f44ba5 );
+                border-style: solid;
+                border-width: 10px 4px;
+                border-radius: 10px 40px;
+                color: black;
+                font-family: 'Permanent Marker', cursive;
+                h1{
+                    margin-left: 30%;
+                }
+            }
+            form{
+                margin-left:25%;
+                margin-top:10%;
+                border-style: solid;
+                border-color: black;
+                height: 50%;
+                width: 50%;
+                justify-content: center;
+                align-items: center;
+                display: block;
+                background: url('https://cdn.pixabay.com/photo/2015/05/01/23/44/to-do-list-749304_1280.jpg');
+                background-size: 340px;
+                background-position: center;
+                
+                div{
+                    font-family: 'Gloria Hallelujah', cursive;
+                    margin-left: 10%;
+                    margin-top:10%;
+                }
+                button{
+                    font-family: 'Dokdo', cursive;
+                    margin-top: 10%;
+                    margin-left: 35%;
+                }
+            }
+    }
+}
+.logo{
+    width: 50px;
+}

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dokdo&family=Gloria+Hallelujah&display=swap');
+
+
+
+.signupStuff{
+    background: url('https://media1.tenor.com/images/8424d6b774f0562ece49148ceb6d4d35/tenor.gif?itemid=16859964') no-repeat;
+    background-size: 100%;
+    background-position:bottom;
+    
+    border-style: solid;
+    width: 90%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+    padding: 10%;
+    h1{
+        margin-left: 25%;
+        font-family: 'Permanent Marker', cursive;
+    }
+    .signUp{
+        font-family: 'Gloria Hallelujah', cursive;
+        margin-left: 25%;
+        width: 50%;
+        border-style: solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background:url('https://i.gifer.com/J4Qb.gif') no-repeat;
+        background-size: 500px;
+        
+        .form{
+            background-color: hsla(180, 100%, 52%, 0.422);
+            width: 100%;
+            display: flex;
+        }
+    }
+}
+.heading{
+    font-family: 'Dokdo', cursive;
+
+}

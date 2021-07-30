@@ -1,27 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import ToDo from './components/todo/todo.js';
-import NavigatingBar from './components/Navbar';
+
 
 import Auth from './components/auth/auth.js';
 import Login from './components/auth/login.js';
+import Footer from './components/footer/Footer.js';
+import SignUp from './components/signUp/signUp.js';
+import { SignUpContext } from './components/signUp/context.js'
+
+
+
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.scss';
 
 
-export default class App extends React.Component {
-  render() {
+
+
+export default function App() {
+
+
+  const { needSU} = useContext(SignUpContext);  
+
+
+  
+
     return (
       <>
-        <NavigatingBar/> 
-        <Login /> 
-        <Auth capability="create">
+      { needSU ? 
+    
+        <SignUp />
+    
+        :
+      <div>
+        <Login />
+        <Auth capability='read'>
           <ToDo />
+          <Footer /> 
         </Auth>  
-  
+      </div>
+        }
+
+        
       </>
     );
   }
-}

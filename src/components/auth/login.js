@@ -1,76 +1,98 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 // import {When} from 'react-if';
 
 import { LoginContext }  from './context.js';
+import { SignUpContext } from '../signUp/context.js';
+
+import './login.scss';
+
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
 
 
-function Login(props) {
-    
-    const context = useContext(LoginContext);
-    
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    
+import logo from './logo.jpg'
 
-    function handleChange(e) {
-     setUsername({[e.target.name]: e.target.value});
-    };
-    function handleChangeTwo(e){
-        setPassword({[e.target.name]: e.target.value});
-    }
+function Login() {
     
+    const { isAuthenticated, login, logout } = useContext(LoginContext);
     
     function handleSubmit(e){
         e.preventDefault();
+        let username = e.target.username.value;
+        let password = e.target.password.value;
 
-        context.login(username, password);
+
+        login(username, password);
         console.log('from login handleSubmit', username, password)
     };
 
-
-
+    const { needSU, clickedSignUp } = useContext(SignUpContext);  
+    function handleClickSignUp(){
+        clickedSignUp(true);
+      }
+    
         return (
-            <div>
-                {context.loggedIn
-                    ? <button onClick={context.logout}>Log Out</button> 
-                    :
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                placeholder="UserName"
-                                name="username"
-                                id="username"
-                                onChange={handleChange}
-                            />
-                            <input
-                                placeholder="password"
-                                name="password"
-                                id="password"
-                                onChange={handleChangeTwo}
-                            />
-                            <button type='submit' >Login</button>
-                        </form>
-                }
+            <div className="login">
+                {isAuthenticated 
 
-        {/* <When condition={context.loggedIn}>
-            <button onClick={context.logout}>Log Out</button>
-            </When>
-            
-            <When condition={!context.loggedIn}>
-            
-            <form onSubmit={handleSubmit}>
-            <input
-            placeholder="UserName"
-            name="username"
-            onChange={handleChange}
-            />
-            <input
-            placeholder="password"
-            name="password"
-            onChange={handleChange}
-            />
-            <button >Login</button>
-            </form>
-        </When> */}
+                    ? 
+                        <Navbar bg="dark" variant="dark">
+                            <Container>
+                                <Navbar.Brand href="/"><img style={{width: '50px'}}src={logo} alt="logo"/></Navbar.Brand>
+                                <Nav className="me-auto">
+                                    <Nav.Link href="/">Home</Nav.Link>
+                                    <Nav.Link href="#features">Features</Nav.Link>
+                                    <Button variant="danger" onClick={logout}>Log Out</Button> 
+                                </Nav>
+                            </Container>
+                        </Navbar>
+                        :
+                        <div>
+                            <Navbar bg="dark" variant="dark">
+                                <Navbar.Brand href="/"><img style={{width: '50px'}}src={logo} alt="logo"/></Navbar.Brand>
+                                <Nav>
+                                    <Button variant="info" type="button" onClick={handleClickSignUp}>Sign Up</Button> 
+                                </Nav>
+                            </Navbar>
+                        <div className="loginForm">
+                            <div className="login">
+                                <div className="H1">
+                                    <img className="logo" src={logo} alt="logo" ></img>
+                                    <h1>ToDoHub</h1>
+                                </div>
+                                <form onSubmit={handleSubmit}>
+
+                                    <div className="bp3-input-group .modifier">
+                                        <label>Enter Username:</label>
+
+                                        <input
+                                            placeholder="Username"
+                                            name="username"
+                                            id="username"
+                                        
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label>
+                                            Enter Password:
+                                        </label>
+
+                                        <input
+                                            placeholder="Password"
+                                            name="password"
+                                            type="password"
+                                            id="password"
+                                        />
+                                    </div>
+                                    <Button variant="danger"  type='submit' >Login</Button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
         </div>
         );
     }
