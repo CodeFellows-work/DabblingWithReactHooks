@@ -15,6 +15,8 @@ import Alert from 'react-bootstrap/Alert';
 
 
 import Auth from '../auth/auth.js';
+import axios from 'axios';
+import { isCompositeComponent } from 'react-dom/cjs/react-dom-test-utils.production.min';
 
 
 
@@ -42,6 +44,11 @@ const ToDo = () => {
       console.log(item);
       item.id = uuid();
       item.complete = false;
+      axios.post('/todos', item).then(function(response){
+        console.log('from axios post todos', response);
+      }).catch(function(err){
+        console.error(err)
+      })
       setList([...list, item]);
     }
     if(list.length >= 5){
@@ -152,7 +159,7 @@ let completed = list.filter(item => item.complete);
         <h2 id="TodoHeading" style={{marginLeft:"5%"}}>Add To Do Item</h2>
 
        
-          <Auth capability='create'>
+          <Auth capability='read'>
             <div className="todoFormDiv">
               <Form className="todoForm" onSubmit={handleSubmit}>
                 <Form.Group className="label">
@@ -191,7 +198,10 @@ let completed = list.filter(item => item.complete);
             <p><small>Assigned to: {item.assignee}</small></p>
             <p><small>Difficulty: {item.difficulty}</small></p>
             <Button onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Button>
-            <Button style={{marginLeft:"10px"}} onClick={() => deleteItem(item.id)} variant="danger">Delete</Button>
+
+            <Auth capability='delete'>
+              <Button style={{marginLeft:"10px"}} onClick={() => deleteItem(item.id)} variant="danger">Delete</Button>
+            </Auth>
           </Alert>
         ))}
           <nav  className="paginationTemptation" aria-label="Page navigation example">

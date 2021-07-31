@@ -3,6 +3,8 @@ import Form  from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 
+import axios from 'axios';
+
 import './signUp.scss';
 
 import { SignUpContext } from './context.js';
@@ -13,10 +15,25 @@ function SignUp() {
 
     const { clickedSignUp } = useContext(SignUpContext);
 
+   
+
     function handleSubmit(e){
         e.preventDefault(); 
-        clickedSignUp(false);
+        let username = e.target.username.value;
+        let password = e.target.password.value;
+        console.log('from handlesubmit in signup', username, password)
 
+        axios.post('http://localhost:3000/signup', {
+                username: username,
+                password: password,
+        })
+            .then(function (response) {
+                console.log(response);
+                clickedSignUp(false);
+            })
+            .catch(function(err){
+                console.log(err);
+            })
     }
 
     return(
@@ -33,15 +50,15 @@ function SignUp() {
                 <Form  className="form" onSubmit={handleSubmit}>
                     <Form.Group className="label">
                     <Form.Label style={{marginLeft: "5%"}}>
-                        <Form.Text style={{color:"white"}}>User Name </Form.Text>
-                        <Form.Control  name="text" type="text" placeholder="Create Username" />
+                        <Form.Text name="username" id="username" style={{color:"white"}}>User Name </Form.Text>
+                        <Form.Control name="username" id="username"  type="text" placeholder="Create Username" />
                     </Form.Label>
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Label style={{marginLeft: "5%"}} className="label">
                         <Form.Text style={{color:"white"}}>Password </Form.Text>
-                        <Form.Control name="assignee" type="text" placeholder="Create Password" />
+                        <Form.Control name="password" id="password" type="text" placeholder="Create Password" />
                     </Form.Label>
                     </Form.Group>
                     <Button  style={{opacity: "0.7", marginLeft: "5%"}} variant="danger" type="submit">Sign Up</Button>
