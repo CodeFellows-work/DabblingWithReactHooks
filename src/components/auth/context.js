@@ -1,31 +1,32 @@
 import React from 'react';
 
 import cookies from 'react-cookies';
-import jwt from 'jsonwebtoken';
 
+
+import axios from 'axios'
 export const LoginContext = React.createContext();
 
 
-const testUsers = [
-    {
-        password:'password',
-        name:'Administrator',
-        role:'admin',
-        capabilities:['create','read','update','delete']
-    },
-    {
-        password: 'password',
-        name: 'Editor',
-        role: 'editor',
-        capabilities: ['read', 'update']
-    },
-    {
-        password: 'password',
-        name: 'Writer',
-        role: 'writer',
-        capabilities: ['create', 'read']
-    }
-]
+// const testUsers = [
+//     {
+//         password:'password',
+//         name:'Administrator',
+//         role:'admin',
+//         capabilities:['create','read','update','delete']
+//     },
+//     {
+//         password: 'password',
+//         name: 'Editor',
+//         role: 'editor',
+//         capabilities: ['read', 'update']
+//     },
+//     {
+//         password: 'password',
+//         name: 'Writer',
+//         role: 'writer',
+//         capabilities: ['create', 'read']
+//     }
+// ]
 
 
 class LoginProvider extends React.Component {
@@ -41,20 +42,39 @@ class LoginProvider extends React.Component {
         };
     }
     
+// try to get users and then map through them before comparing them to the user inputs 
+
     login = (username, password) => {
         // search our testUser and return a valid user.
-        let validUser = {};
-        let token = null;
-        testUsers.forEach(user => {
-            if (user.name === username && user.password === password) {
-                validUser = user
-            }
+        axios.post('http://localhost:3000/signin', {}, {auth : {
+            username: username,
+            password: password,
+            },
+        })
+        .then((response) => {
+            console.log('then response',response);
+            this.setState({ isAuthenticated: true, user: response.data.user })
+            // axios.get('http://localhost:3000/users')
+            // .then(function(respone) {
+            //     console.log('getting users', response);
+            // })
+            // .catch(function(err){
+            //     console.error(err);
+            // })
+            
+            // let validUser = {};
+            // let token = null;
+            // if(response.data.user === username && response.data.password === password){
+            //     validUser = response.data.user
+            //     token = response.data.token
+            //     console.log('validUser', validUser);
+                // this.setState({ isAuthenticated: true, user: validUser });
+            
+            // cookies.save('token', token);
+        })
+        .catch((err) => {
+            console.error(err)
         });
-            if (validUser) {
-                token = jwt.sign(validUser, 'secretstring');
-            }
-        cookies.save('token', token);
-        this.setState({ isAuthenticated: true, user: validUser });
     }
         
     logout = () => {
