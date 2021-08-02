@@ -23,7 +23,7 @@ function SignUp() {
         let password = e.target.password.value;
         console.log('from handlesubmit in signup', username, password)
 
-        axios.post('http://localhost:3000/signup', {
+        axios.post('https://todohubserver.herokuapp.com/signup', {
                 username: username,
                 password: password,
         })

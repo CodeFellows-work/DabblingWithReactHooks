@@ -44,7 +44,7 @@ const ToDo = () => {
       console.log(item);
       item.id = uuid();
       item.complete = false;
-      axios.post('/todos', item).then(function(response){
+      axios.post('https://todohubserver.herokuapp.com/todos', item).then(function(response){
         console.log('from axios post todos', response);
       }).catch(function(err){
         console.error(err)
