@@ -1,6 +1,6 @@
 import React from 'react';
 
-import cookies from 'react-cookies';
+
 
 
 import axios from 'axios'

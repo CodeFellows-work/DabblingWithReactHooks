@@ -16,7 +16,7 @@ import Alert from 'react-bootstrap/Alert';
 
 import Auth from '../auth/auth.js';
 import axios from 'axios';
-import { isCompositeComponent } from 'react-dom/cjs/react-dom-test-utils.production.min';
+
 
 
 

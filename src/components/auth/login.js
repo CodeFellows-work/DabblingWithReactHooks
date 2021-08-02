@@ -29,6 +29,7 @@ function Login() {
     };
 
     const { needSU, clickedSignUp } = useContext(SignUpContext);  
+    console.log(needSU);
     function handleClickSignUp(){
         clickedSignUp(true);
       }
